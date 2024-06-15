@@ -22,6 +22,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Login extends javax.swing.JFrame {
 
     private final Connection connection;
+    String username;
+    String password;
 
     public Login() throws SQLException {
         initComponents();
@@ -229,29 +231,28 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
-            String username = usernameInput.getText();
-            String password = new String(passwordInput.getPassword());
+        String username = usernameInput.getText();
+        String password = new String(passwordInput.getPassword());
 
-            String query = "SELECT Username, Password FROM Account WHERE Username = ? AND Password = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        String query = "SELECT Username, Password FROM Account WHERE Username = ? AND Password = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                // If a match is found
-                Dashboard dashboard;
-                dashboard = new Dashboard();
-                dashboard.setVisible(true);
-                this.setVisible(false);
-            } else {
-                // If no match is found
-                JOptionPane.showMessageDialog(this, "Username atau Password salah.");
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        if (resultSet.next()) {
+            // If a match is found
+            Dashboard dashboard = new Dashboard(username);
+            dashboard.setVisible(true);
+            this.setVisible(false);
+        } else {
+            // If no match is found
+            JOptionPane.showMessageDialog(this, "Username atau Password salah.");
         }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+    }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
@@ -269,9 +270,12 @@ public class Login extends javax.swing.JFrame {
             FlatLaf.registerCustomDefaultsSource("Borrow_App");
             FlatLightLaf.setup();
 
-            UIManager.put("TableHeader.background", new Color(16, 42, 67));
+            UIManager.put("TableHeader.background", new Color(24,34,52));
             UIManager.put("TableHeader.foreground", Color.white);
-            UIManager.put("Table.alternateRowColor", new Color(240, 240, 240));
+            UIManager.put("Table.alternateRowColor", new Color(24,34,52));
+            UIManager.put("Table.showHorizontalLines", false);
+            UIManager.put("Table.showVerticalLines", false);
+            UIManager.put("TableHeader.height", 30);
             UIManager.put("TextField.placeholderForeground", new Color(144, 158, 176));
             UIManager.put("Button.arc", 10);
             UIManager.put("TextComponent.arc", 10);
@@ -279,6 +283,7 @@ public class Login extends javax.swing.JFrame {
             UIManager.put("ProgressBar.arc", 10);
             UIManager.put("Button.borderWidth", 0);
             UIManager.put("Component.borderWidth", 0);
+            UIManager.put("Table.rowHeight", 30);
             UIManager.put( "Component.arrowType", "triangle" );
 
         } catch (UnsupportedLookAndFeelException ex) {

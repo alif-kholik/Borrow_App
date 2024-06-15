@@ -196,7 +196,6 @@ public class SignUp extends javax.swing.JFrame {
 
         emailInput.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Masukan Email yang Valid!");
         usernameInput.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Masukan Username");
-        btnRegister.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT );
         passwordInput.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Masukan Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
